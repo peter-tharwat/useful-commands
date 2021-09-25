@@ -70,11 +70,11 @@ certbot certonly --noninteractive --agree-tos --cert-name slickstack -d SITE_TLD
 ### Crontab Usefull Commands
 
 ```jsx
-* * * * * cd /var/www/html/nafezly.com/ && git reset --hard HEAD && git clean -f -d && git pull origin master --allow-unrelated-histories
-* * * * * cd /var/www/html/blog.nafezly.com/wp-content/themes/nafezly1.0/ && git reset --hard HEAD && git clean -f -d && git pull origin master --allow-unrelated-histories
-* * * * * cd /var/www/html/nafezly.com && php artisan queue:restart && php artisan queue:work >> /dev/null 2>&1
-* * * * * cd /var/www/html/nafezly.com && php artisan schedule:run >> /dev/null 2>&1
-* * * * * cd /var/www/html/nafezly.com/storage/logs && chmod -R 777 *
+* * * * * cd /var/www/html/example.com/ && git reset --hard HEAD && git clean -f -d && git pull origin master --allow-unrelated-histories
+* * * * * cd /var/www/html/blog.example.com/wp-content/themes/nafezly1.0/ && git reset --hard HEAD && git clean -f -d && git pull origin master --allow-unrelated-histories
+* * * * * cd /var/www/html/example.com && php artisan queue:restart && php artisan queue:work >> /dev/null 2>&1
+* * * * * cd /var/www/html/example.com && php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /var/www/html/example.com/storage/logs && chmod -R 777 *
 ```
 
 ### Useful Headers
