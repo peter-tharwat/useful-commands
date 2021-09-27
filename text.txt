@@ -1,0 +1,39 @@
+server {
+    listen 80;
+    access_log off;
+    root /var/www/html/example.com/public;
+    index index.php index.html index.htm index.nginx-debian.html;
+    client_max_body_size 1000M;
+    fastcgi_read_timeout 8600;
+    proxy_cache_valid 200 365d;
+    location ~ \.(env|log|htaccess)$ {
+        deny all;
+    }
+    location ~*\.(?:js|jpg|jpeg|gif|png|css|tgz|gz|rar|bz2|doc|pdf|ppt|tar|wav|bmp|rtf|swf|ico|flv|txt|woff|woff2|svg|mp3|jpe?g,eot|ttf|svg)$ {
+        access_log off;
+        expires 360d;
+        add_header Access-Control-Allow-Origin *;
+add_header Pragma public;
+        add_header Cache-Control public;
+        add_header Vary Accept-Encoding; 
+        try_files  / /index.php?;
+    }
+    location / {
+add_header Access-Control-Allow-Origin *;
+        if ( ~* ^(www)) {
+          rewrite ^/(.*)$ https://example.com/ permanent;
+        }
+        try_files  / /index.php?;
+access_log off;
+    }
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+    }
+   listen 443 ssl; # managed by Certbot
+   server_name example.com www.example.com;
+   ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem; # managed by Certbot
+   ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem; # managed by Certbot
+   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
