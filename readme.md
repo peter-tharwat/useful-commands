@@ -22,10 +22,10 @@ FLUSH PRIVILEGES;
 
 ```powershell
 Export : mysqldump -u root -p db > db.sql #one db
-			 : mysqldump -u root -p --all-databases > alldb.sql # all dbs
-			 : for DB in $(mysql -e 'show databases' -s --skip-column-names); do 
-				    mysqldump -u root -p  $DB > "$DB.sql";
-				  done
+             : mysqldump -u root -p --all-databases > alldb.sql # all dbs
+             : for DB in $(mysql -e 'show databases' -s --skip-column-names); do 
+                    mysqldump -u root -p  $DB > "$DB.sql";
+                  done
 
 Import : mysql -u root -p db < db.sql
 ```
@@ -61,8 +61,6 @@ $ sudo service mysql restart
 ```jsx
 mysqldump --all-databases -uuser -ppassword -hserver -P3306 --force | mysql -hremoteserver -uremoteuser -premotepassword -P3306 --force
 ```
-
---------
 
 ### SSL Certificate
 
@@ -109,85 +107,85 @@ pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
 #include /etc/nginx/conf.d/*;
 events {
-	worker_connections 768;
-	# multi_accept on;
+    worker_connections 768;
+    # multi_accept on;
 }
 
 http {
-#	access_by_lua_file anti_ddos_challenge.lua;
-	#client_max_body_size = 250M;
-	##
-	# Basic Settings
-	##
-	client_max_body_size 250M;
-	sendfile on;
-	tcp_nopush on;
-	tcp_nodelay on;
-	keepalive_timeout 65;
-	types_hash_max_size 2048;
-	# server_tokens off;
+#   access_by_lua_file anti_ddos_challenge.lua;
+    #client_max_body_size = 250M;
+    ##
+    # Basic Settings
+    ##
+    client_max_body_size 250M;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    # server_tokens off;
 
-	# server_names_hash_bucket_size 64;
-	# server_name_in_redirect off;
+    # server_names_hash_bucket_size 64;
+    # server_name_in_redirect off;
 
-	include /etc/nginx/mime.types;
-	default_type application/octet-stream;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
 
-	##
-	# SSL Settings
-	##
+    ##
+    # SSL Settings
+    ##
 
-	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
-	ssl_prefer_server_ciphers on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+    ssl_prefer_server_ciphers on;
 
-	##
-	# Logging Settings
-	##
+    ##
+    # Logging Settings
+    ##
 
-	access_log /var/log/nginx/access.log;
-	error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
 
-	##
-	# Gzip Settings
-	##
+    ##
+    # Gzip Settings
+    ##
 
-	gzip on;
+    gzip on;
 
-	 gzip_vary on;
-	 gzip_proxied any;
-	 gzip_comp_level 6;
-	 gzip_min_length    256;
-	 gzip_buffers 16 8k;
-	 gzip_http_version 1.1;
-	 gzip_types text/plain text/css application/javascript application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml image/svg image/jpg image/png;
+     gzip_vary on;
+     gzip_proxied any;
+     gzip_comp_level 6;
+     gzip_min_length    256;
+     gzip_buffers 16 8k;
+     gzip_http_version 1.1;
+     gzip_types text/plain text/css application/javascript application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml image/svg image/jpg image/png;
 
-	##
-	# Virtual Host Configs
-	##
+    ##
+    # Virtual Host Configs
+    ##
 
-	include /etc/nginx/conf.d/*.conf;
-	include /etc/nginx/sites-enabled/*;
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
 }
 
 #mail {
-#	# See sample authentication script at:
-#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
+#   # See sample authentication script at:
+#   # http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript
 # 
-#	# auth_http localhost/auth.php;
-#	# pop3_capabilities "TOP" "USER";
-#	# imap_capabilities "IMAP4rev1" "UIDPLUS";
+#   # auth_http localhost/auth.php;
+#   # pop3_capabilities "TOP" "USER";
+#   # imap_capabilities "IMAP4rev1" "UIDPLUS";
 # 
-#	server {
-#		listen     localhost:110;
-#		protocol   pop3;
-#		proxy      on;
-#	}
+#   server {
+#       listen     localhost:110;
+#       protocol   pop3;
+#       proxy      on;
+#   }
 # 
-#	server {
-#		listen     localhost:143;
-#		protocol   imap;
-#		proxy      on;
-#	}
+#   server {
+#       listen     localhost:143;
+#       protocol   imap;
+#       proxy      on;
+#   }
 #}
 ```
 
@@ -236,21 +234,21 @@ server {
         access_log off;
         expires 360d;
         add_header Access-Control-Allow-Origin *;
-	add_header Pragma public;
+    add_header Pragma public;
         add_header Cache-Control "public";
         add_header Vary Accept-Encoding; 
         try_files $uri $uri/ /index.php?$query_string;
     }
     location / {
-	add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Origin *;
         if ($host ~* ^(www)) {
           rewrite ^/(.*)$ https://example.com/$1 permanent;
         }
-				if ($scheme = http) {
-				        return 301 https://example.com$request_uri;
-				}
+                if ($scheme = http) {
+                        return 301 https://example.com$request_uri;
+                }
         try_files $uri $uri/ /index.php?$query_string;
-	access_log off;
+    access_log off;
     }
 
     location ~ \.php$ {
@@ -275,6 +273,13 @@ sudo ufw app list
 sudo ufw allow 'Nginx HTTP'
 sudo ufw allow 'Nginx HTTPS'
 sudo ufw status
+```
+
+### Install Laravel Extensions
+
+```powershell
+sudo add-apt-repository universe
+sudo apt install php openssl php-fpm php-common php-curl php-json php-mbstring php-mysql php-xml php-zip php-gd php-cli
 ```
 
 ### Setting Up Firewall
@@ -444,12 +449,6 @@ rm -rf /etc/nginx/sites-enabled/example.com  ; echo 'server {
 ```powershell
 sudo apt update ; sudo apt install nginx ; sudo ufw allow 'Nginx HTTP' ; sudo ufw allow 'Nginx HTTPS' ; sudo ufw allow OpenSSH ; sudo ufw enable ; sudo add-apt-repository universe ; sudo apt install php openssl php-fpm php-common php-curl php-json php-mbstring php-mysql php-xml php-zip php-gd php-cli ; sudo apt install mysql-server 
 ```
-### Install Laravel Extensions
-
-```powershell
-sudo add-apt-repository universe
-sudo apt install php openssl php-fpm php-common php-curl php-json php-mbstring php-mysql php-xml php-zip php-gd php-cli
-```
 
 ### run laravel application
 
@@ -463,6 +462,21 @@ php artisan migrate --seed ; chmod 777 -R storage
 
 ```powershell
 du -sh * | sort -hr
+```
+
+### Close Process On Port Linux
+
+```powershell
+sudo kill -9 $(sudo lsof -t -i:9001)
+```
+
+### Alert Before Remove
+
+```powershell
+var result = confirm('هل أنت متأكد من عملية الحذف ؟');
+if (result) {
+    //Logic to delete the item
+}
 ```
 
 # Usefull Packages
