@@ -79,7 +79,7 @@ certbot certonly --noninteractive --agree-tos --cert-name SITE_TLD -d SITE_TLD -
 ```jsx
 * * * * * cd /var/www/html/example.com/ && git reset --hard HEAD && git clean -f -d && git pull origin master --allow-unrelated-histories
 * * * * * cd /var/www/html/blog.example.com/wp-content/themes/blog/ && git reset --hard HEAD && git clean -f -d && git pull origin master --allow-unrelated-histories
-* * * * * cd /var/www/html/example.com && php artisan queue:restart && php artisan queue:work >> /dev/null 2>&1
+* * * * * cd /var/www/html/example.com && php artisan queue:restart && php artisan queue:work --queue=high,medium,default,low >> /dev/null 2>&1
 * * * * * cd /var/www/html/example.com && php artisan schedule:run >> /dev/null 2>&1
 * * * * * cd /var/www/html/example.com/storage/logs && chmod -R 777 *
 ```
