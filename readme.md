@@ -479,6 +479,14 @@ if (result) {
 }
 ```
 
+### Upgrade composer from v1 to v2
+`
+sudo apt remove composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+php -r "unlink('composer-setup.php');"
+`
+
 # Usefull Packages
 
 [https://github.com/spatie/browsershot](https://github.com/spatie/browsershot)
